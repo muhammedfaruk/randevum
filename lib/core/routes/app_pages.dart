@@ -6,6 +6,10 @@ import '../../modules/home/views/home_screen.dart';
 import '../../modules/home/home_controller.dart';
 import '../../modules/appointment/appointment_service.dart';
 import '../../presentation/views/splash/splash_screen.dart';
+import '../../presentation/views/main/main_view.dart';
+import '../../presentation/views/main/main_controller.dart';
+import '../../presentation/views/calendar/calendar_controller.dart';
+import '../../presentation/views/staff_services/staff_services_controller.dart';
 import 'app_routes.dart';
 
 class AppPages {
@@ -26,6 +30,15 @@ class AppPages {
       page: () => const HomeScreen(),
       binding: BindingsBuilder(() {
         Get.put(HomeController(Get.find<AppointmentService>()));
+      }),
+    ),
+    GetPage(
+      name: AppRoutes.main,
+      page: () => const MainView(),
+      binding: BindingsBuilder(() {
+        Get.put(MainController());
+        Get.put(CalendarController());
+        Get.put(StaffServicesController());
       }),
     ),
   ];

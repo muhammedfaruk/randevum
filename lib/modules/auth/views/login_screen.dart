@@ -35,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     if (success) {
-      Get.offAllNamed(AppRoutes.home);
+      Get.offAllNamed(AppRoutes.main);
     } else {
       Get.snackbar(
         'Hata',
