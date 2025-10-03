@@ -3,24 +3,24 @@ import 'app_colors.dart';
 
 class AppTheme {
   static ThemeData get lightTheme => ThemeData(
-        useMaterial3: true,
-        brightness: Brightness.light,
+        useMaterial3: true,        
+        brightness: Brightness.dark,
         scaffoldBackgroundColor: AppColors.background,
         primaryColor: AppColors.primary,
-        colorScheme: const ColorScheme.light(
+        colorScheme: const ColorScheme.dark(
           primary: AppColors.primary,
           secondary: AppColors.primaryLight,
           surface: AppColors.surface,
           error: AppColors.error,
-          onPrimary: AppColors.white,
-          onSecondary: AppColors.white,
+          onPrimary: AppColors.background,
+          onSecondary: AppColors.background,
           onSurface: AppColors.textPrimary,
           onError: AppColors.white,
         ),
         appBarTheme: const AppBarTheme(
           elevation: 0,
           centerTitle: false,
-          backgroundColor: AppColors.surface,
+          backgroundColor: AppColors.background,
           foregroundColor: AppColors.textPrimary,
           titleTextStyle: TextStyle(
             fontSize: 18,
@@ -34,7 +34,7 @@ class AppTheme {
           color: AppColors.surface,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(16)),
-            side: BorderSide(color: AppColors.gray100, width: 1),
+            side: BorderSide(color: AppColors.divider, width: 1),
           ),
           margin: EdgeInsets.all(0),
         ),
@@ -42,9 +42,9 @@ class AppTheme {
           style: ElevatedButton.styleFrom(
             elevation: 0,
             backgroundColor: AppColors.primary,
-            foregroundColor: AppColors.white,
-            disabledBackgroundColor: AppColors.gray200,
-            disabledForegroundColor: AppColors.gray400,
+            foregroundColor: AppColors.background,
+            disabledBackgroundColor: AppColors.gray600,
+            disabledForegroundColor: AppColors.textDisabled,
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
             minimumSize: const Size(0, 48),
             shape: RoundedRectangleBorder(
@@ -79,11 +79,11 @@ class AppTheme {
           contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: AppColors.gray200, width: 1.5),
+            borderSide: const BorderSide(color: AppColors.divider, width: 1.5),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: AppColors.gray200, width: 1.5),
+            borderSide: const BorderSide(color: AppColors.divider, width: 1.5),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
@@ -94,7 +94,7 @@ class AppTheme {
             borderSide: const BorderSide(color: AppColors.error, width: 1.5),
           ),
           hintStyle: const TextStyle(
-            color: AppColors.gray400,
+            color: AppColors.textDisabled,
             fontSize: 14,
           ),
           labelStyle: const TextStyle(

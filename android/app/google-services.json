@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "918994796769",
+    "project_id": "randevu-app-199bf",
+    "storage_bucket": "randevu-app-199bf.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:918994796769:android:35b4a0de9eace6eaff77a0",
+        "android_client_info": {
+          "package_name": "com.example.randevum"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNGUAwdhGnyuBvzEKRdkkQDrKhEck2HQg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

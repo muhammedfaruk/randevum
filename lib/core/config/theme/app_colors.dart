@@ -1,26 +1,28 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  // Primary Colors (Soft Indigo)
-  static const primary = Color(0xFF6B7FD7);
-  static const primaryLight = Color(0xFF98A9E8);
-  static const primaryDark = Color(0xFF4A5FC1);
+  // Primary Colors (Sky Blue)
+  static const primary = Color(0xFF80B0F8);
+  static const primaryLight = Color(0xFFA8C8F8);
+  static const primaryDark = Color(0xFF405880);
   
-  // Background Colors (Clean & Light)
-  static const background = Color(0xFFFAFBFC);
-  static const surface = Color(0xFFFFFFFF);
-  static const surfaceVariant = Color(0xFFF5F6FA);
+  // Background Colors (Dark UI)
+  static const background = Color(0xFF1E2830);
+  static const surface = Color(0xFF13191E);
+  static const surfaceVariant = Color(0xFF182024);
+  static const divider = Color(0xFF222A2E);
   
-  // Text Colors
-  static const textPrimary = Color(0xFF1A1D2E);
-  static const textSecondary = Color(0xFF6B7280);
-  static const textDisabled = Color(0xFF9CA3AF);
+  // Text Colors (Light on Dark)
+  static const textPrimary = Color(0xFFF8F8F8);
+  static const textSecondary = Color(0xFFA0A7AF);
+  static const textDisabled = Color(0xFF6B737C);
+  static const link = Color(0xFF80B0F8);
   
   // Status Colors
-  static const success = Color(0xFF10B981);
+  static const success = Color(0xFF22C55E);
   static const warning = Color(0xFFF59E0B);
   static const error = Color(0xFFEF4444);
-  static const info = Color(0xFF3B82F6);
+  static const info = Color(0xFF80B0F8);
   
   // Gray Scale
   static const gray50 = Color(0xFFF9FAFB);

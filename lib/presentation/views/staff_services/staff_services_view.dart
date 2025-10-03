@@ -11,7 +11,7 @@ class StaffServicesView extends GetView<StaffServicesController> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Çalışanlar & Hizmetler'),
+          title: const Text('Yönetim'),
           elevation: 0,
           backgroundColor: Colors.transparent,
           foregroundColor: Theme.of(context).textTheme.titleLarge?.color,

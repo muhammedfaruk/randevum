@@ -4,7 +4,7 @@ import 'package:table_calendar/table_calendar.dart';
 class CalendarController extends GetxController {
   DateTime focusedDay = DateTime.now();
   DateTime selectedDay = DateTime.now();
-  CalendarFormat calendarFormat = CalendarFormat.month;
+  CalendarFormat calendarFormat = CalendarFormat.twoWeeks;
   
   // Mock randevu verileri
   Map<DateTime, List<Map<String, dynamic>>> appointments = <DateTime, List<Map<String, dynamic>>>{};
