@@ -5,11 +5,11 @@ import '../../modules/auth/auth_service.dart';
 import '../../modules/home/views/home_screen.dart';
 import '../../modules/home/home_controller.dart';
 import '../../modules/appointment/appointment_service.dart';
-import '../../presentation/views/splash/splash_screen.dart';
-import '../../presentation/views/main/main_view.dart';
-import '../../presentation/views/main/main_controller.dart';
-import '../../presentation/views/calendar/calendar_controller.dart';
-import '../../presentation/views/staff_services/staff_services_controller.dart';
+import '../../modules/splash/views/splash_screen.dart';
+import '../../modules/main/views/main_view.dart';
+import '../../modules/main/controllers/main_controller.dart';
+import '../../modules/calendar/controllers/calendar_controller.dart';
+import '../../modules/staff_services/controllers/staff_services_controller.dart';
 import 'app_routes.dart';
 
 class AppPages {

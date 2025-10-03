@@ -122,17 +122,7 @@ class StaffServicesController extends GetxController {
     filteredServices = services;
   }
 
-  void searchStaff(String query) {
-    if (query.isEmpty) {
-      filteredStaff = staff;
-    } else {
-      filteredStaff = staff.where((s) =>
-        s['name'].toLowerCase().contains(query.toLowerCase()) ||
-        s['position'].toLowerCase().contains(query.toLowerCase())
-      ).toList();
-    }
-    update(['staff-list']);
-  }
+
 
   void selectCategory(String category) {
     selectedCategory = category;

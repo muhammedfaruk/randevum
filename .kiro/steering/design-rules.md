@@ -65,20 +65,32 @@ AppColors.info           // #80B0F8 - Bilgi (primary ile hizalı)
 48.0, 64.0
 ```
 
-### Border Radius
+### Border Radius (AppRadii Kullanın)
 
 ```dart
-// Küçük köşeler
-BorderRadius.circular(8)
+// AppRadii sınıfını import edin
+import '../../../core/config/theme/app_radii.dart';
 
-// Orta köşeler (standart)
-BorderRadius.circular(12)
+// Radius değerleri
+AppRadii.sm   // 8.0  - Default (her zaman kullanın)
+AppRadii.md   // 12.0 - Orta köşeler
+AppRadii.lg   // 16.0 - Büyük köşeler
+AppRadii.xl   // 24.0 - Ekstra büyük
+AppRadii.x2l  // 32.0 - Çok büyük
+AppRadii.x3l  // 48.0 - Maximum
+AppRadii.full // 9999.0 - Tam yuvarlak
 
-// Büyük köşeler
-BorderRadius.circular(16)
+// Kullanım örnekleri
+BorderRadius.circular(AppRadii.sm)   // Default - her zaman kullanın
+BorderRadius.circular(AppRadii.md)   // Özel durumlar için
+BorderRadius.circular(AppRadii.lg)   // Büyük kartlar için
 
-// Yuvarlak köşeler
-BorderRadius.circular(20)
+// ❌ Yapmayın
+BorderRadius.circular(12)  // Hardcoded değer
+BorderRadius.circular(16)  // Hardcoded değer
+
+// ✅ Yapın
+BorderRadius.circular(AppRadii.sm)  // Default radius
 ```
 
 ## 🔤 Typography

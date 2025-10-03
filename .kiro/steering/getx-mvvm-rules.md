@@ -13,18 +13,14 @@ lib/
 ├── core/
 │   ├── config/
 │   ├── routes/
+│   ├── widgets/
 │   └── di/
-├── modules/
-│   └── [module_name]/
-│       ├── controllers/
-│       ├── views/
-│       ├── models/
-│       └── services/
-└── presentation/
-    └── views/
-        └── [page_name]/
-            ├── [page_name]_view.dart
-            └── [page_name]_controller.dart
+└── modules/
+    └── [module_name]/
+        ├── controllers/
+        ├── views/
+        ├── models/
+        └── services/
 ```
 
 ## 🎯 Controller Kuralları

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/config/theme/app_colors.dart';
 import '../../../core/routes/app_routes.dart';
-import '../../../modules/auth/auth_controller.dart';
+import '../../auth/auth_controller.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

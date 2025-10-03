@@ -1,4 +1,4 @@
-part of '../calendar_view.dart';
+part of '../views/calendar_view.dart';
 
 final class AppointmentCard extends StatelessWidget {
   const AppointmentCard({super.key, required this.appointment, required this.statusColor});
@@ -8,10 +8,10 @@ final class AppointmentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(      
+    return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.circular(AppRadii.sm),       
+        borderRadius: BorderRadius.circular(AppRadii.sm),
       ),
       child: ListTile(
         contentPadding: const EdgeInsets.all(16),

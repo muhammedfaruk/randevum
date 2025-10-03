@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'staff_services_controller.dart';
+import '../controllers/staff_services_controller.dart';
+import '../../../core/config/theme/app_radii.dart';
 
-class StaffServicesView extends GetView<StaffServicesController> {
+final class StaffServicesView extends GetView<StaffServicesController> {
   const StaffServicesView({super.key});
 
   @override
@@ -15,26 +16,25 @@ class StaffServicesView extends GetView<StaffServicesController> {
           elevation: 0,
           backgroundColor: Colors.transparent,
           foregroundColor: Theme.of(context).textTheme.titleLarge?.color,
-          bottom: TabBar(
-            indicatorColor: Theme.of(context).primaryColor,
-            labelColor: Theme.of(context).primaryColor,
-            unselectedLabelColor: Colors.grey,
-            tabs: const [
-              Tab(
-                icon: Icon(Icons.people),
-                text: 'Çalışanlar',
-              ),
-              Tab(
-                icon: Icon(Icons.design_services),
-                text: 'Hizmetler',
-              ),
-            ],
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(40),
+            child: TabBar(
+              indicatorColor: Theme.of(context).primaryColor,
+              labelColor: Theme.of(context).primaryColor,
+              unselectedLabelColor: Colors.grey,
+              dividerColor: Colors.transparent,
+              labelPadding: const EdgeInsets.symmetric(vertical: 8),
+              tabs: const [                
+                Tab(text: 'Hizmetler'),
+                Tab(text: 'Çalışanlar'),
+              ],
+            ),
           ),
         ),
         body: TabBarView(
           children: [
-            _buildStaffTab(context),
             _buildServicesTab(context),
+            _buildStaffTab(context),            
           ],
         ),
       ),
@@ -44,47 +44,15 @@ class StaffServicesView extends GetView<StaffServicesController> {
   Widget _buildStaffTab(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16),
-      child: Column(
-        children: [
-          // Arama çubuğu
-          Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).cardColor,
-              borderRadius: BorderRadius.circular(12),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
-                  blurRadius: 8,
-                  offset: const Offset(0, 2),
-                ),
-              ],
-            ),
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: 'Çalışan ara...',
-                prefixIcon: const Icon(Icons.search),
-                border: InputBorder.none,
-                contentPadding: const EdgeInsets.all(16),
-              ),
-              onChanged: controller.searchStaff,
-            ),
-          ),
-          const SizedBox(height: 16),
-          
-          // Çalışanlar listesi
-          Expanded(
-            child: GetBuilder<StaffServicesController>(
-              id: 'staff-list',
-              builder: (controller) => ListView.builder(
-                itemCount: controller.filteredStaff.length,
-                itemBuilder: (context, index) {
-                  final staff = controller.filteredStaff[index];
-                  return _buildStaffCard(context, staff);
-                },
-              ),
-            ),
-          ),
-        ],
+      child: GetBuilder<StaffServicesController>(
+        id: 'staff-list',
+        builder: (controller) => ListView.builder(
+          itemCount: controller.filteredStaff.length,
+          itemBuilder: (context, index) {
+            final staff = controller.filteredStaff[index];
+            return _buildStaffCard(context, staff);
+          },
+        ),
       ),
     );
   }
@@ -105,14 +73,14 @@ class StaffServicesView extends GetView<StaffServicesController> {
                 itemBuilder: (context, index) {
                   final category = controller.serviceCategories[index];
                   final isSelected = controller.selectedCategory == category;
-                  
+
                   return Container(
                     margin: const EdgeInsets.only(right: 8),
                     child: FilterChip(
                       label: Text(category),
                       selected: isSelected,
                       onSelected: (selected) => controller.selectCategory(category),
-                      selectedColor: Theme.of(context).primaryColor.withOpacity(0.2),
+                      selectedColor: Theme.of(context).primaryColor.withValues(alpha: 0.2),
                       checkmarkColor: Theme.of(context).primaryColor,
                     ),
                   );
@@ -121,7 +89,7 @@ class StaffServicesView extends GetView<StaffServicesController> {
             ),
           ),
           const SizedBox(height: 16),
-          
+
           // Hizmetler listesi
           Expanded(
             child: GetBuilder<StaffServicesController>(
@@ -145,10 +113,10 @@ class StaffServicesView extends GetView<StaffServicesController> {
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(AppRadii.sm),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -166,10 +134,10 @@ class StaffServicesView extends GetView<StaffServicesController> {
                 gradient: LinearGradient(
                   colors: [
                     Theme.of(context).primaryColor,
-                    Theme.of(context).primaryColor.withOpacity(0.7),
+                    Theme.of(context).primaryColor.withValues(alpha: 0.7),
                   ],
                 ),
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(AppRadii.full),
               ),
               child: Center(
                 child: Text(
@@ -183,7 +151,7 @@ class StaffServicesView extends GetView<StaffServicesController> {
               ),
             ),
             const SizedBox(width: 16),
-            
+
             // Bilgiler
             Expanded(
               child: Column(
@@ -240,7 +208,7 @@ class StaffServicesView extends GetView<StaffServicesController> {
                 ],
               ),
             ),
-            
+
             // Aksiyon butonu
             IconButton(
               onPressed: () => controller.viewStaffDetails(staff),
@@ -257,10 +225,10 @@ class StaffServicesView extends GetView<StaffServicesController> {
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(AppRadii.sm),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -275,8 +243,8 @@ class StaffServicesView extends GetView<StaffServicesController> {
               width: 50,
               height: 50,
               decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(12),
+                color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(AppRadii.sm),
               ),
               child: Icon(
                 _getServiceIcon(service['category']),
@@ -285,7 +253,7 @@ class StaffServicesView extends GetView<StaffServicesController> {
               ),
             ),
             const SizedBox(width: 16),
-            
+
             // Hizmet bilgileri
             Expanded(
               child: Column(
