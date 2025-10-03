@@ -1,0 +1,276 @@
+---
+inclusion: always
+---
+
+# Design System Rules
+
+Bu projede tutarlı ve modern bir design system kullanılmaktadır. Aşağıdaki kuralları takip edin:
+
+## 🎨 Color Palette
+
+### Primary Colors (Soft Indigo)
+```dart
+AppColors.primary        // #6B7FD7 - Ana marka rengi
+AppColors.primaryLight   // #98A9E8 - Açık ton
+AppColors.primaryDark    // #4A5FC1 - Koyu ton
+```
+
+### Background Colors (Clean & Light)
+```dart
+AppColors.background     // #FAFBFC - Ana arkaplan
+AppColors.surface        // #FFFFFF - Kart/yüzey rengi
+AppColors.surfaceVariant // #F5F6FA - Alternatif yüzey
+```
+
+### Text Colors
+```dart
+AppColors.textPrimary    // #1A1D2E - Ana metin
+AppColors.textSecondary  // #6B7280 - İkincil metin
+AppColors.textDisabled   // #9CA3AF - Devre dışı metin
+```
+
+### Status Colors
+```dart
+AppColors.success        // #10B981 - Başarı (yeşil)
+AppColors.warning        // #F59E0B - Uyarı (turuncu)
+AppColors.error          // #EF4444 - Hata (kırmızı)
+AppColors.info           // #3B82F6 - Bilgi (mavi)
+```
+
+## 📐 Spacing System
+
+### Padding & Margin
+```dart
+// Küçük boşluklar
+4.0, 6.0, 8.0
+
+// Orta boşluklar
+12.0, 16.0, 20.0
+
+// Büyük boşluklar
+24.0, 32.0, 40.0
+
+// Ekstra büyük boşluklar
+48.0, 64.0
+```
+
+### Border Radius
+```dart
+// Küçük köşeler
+BorderRadius.circular(8)
+
+// Orta köşeler (standart)
+BorderRadius.circular(12)
+
+// Büyük köşeler
+BorderRadius.circular(16)
+
+// Yuvarlak köşeler
+BorderRadius.circular(20)
+```
+
+## 🔤 Typography
+
+### Font Sizes
+```dart
+// Küçük metinler
+fontSize: 9   // Navigation labels
+fontSize: 10  // Captions
+fontSize: 12  // Small text
+
+// Normal metinler
+fontSize: 14  // Body text
+fontSize: 15  // Button text
+fontSize: 16  // Default body
+
+// Başlıklar
+fontSize: 18  // AppBar title
+fontSize: 20  // Section headers
+fontSize: 24  // Page titles
+```
+
+### Font Weights
+```dart
+FontWeight.w400  // Normal
+FontWeight.w500  // Medium (buttons, labels)
+FontWeight.w600  // Semi-bold (titles)
+FontWeight.bold  // Bold (emphasis)
+```
+
+## 🎯 Component Rules
+
+### Cards
+```dart
+Container(
+  decoration: BoxDecoration(
+    color: AppColors.surface,
+    borderRadius: BorderRadius.circular(16),
+    boxShadow: [
+      BoxShadow(
+        color: Colors.black.withOpacity(0.05),
+        blurRadius: 10,
+        offset: const Offset(0, 2),
+      ),
+    ],
+  ),
+)
+```
+
+### Buttons
+```dart
+// Primary Button
+ElevatedButton(
+  style: ElevatedButton.styleFrom(
+    backgroundColor: AppColors.primary,
+    foregroundColor: AppColors.white,
+    padding: EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(12),
+    ),
+  ),
+)
+
+// Secondary Button
+OutlinedButton(
+  style: OutlinedButton.styleFrom(
+    foregroundColor: AppColors.primary,
+    side: BorderSide(color: AppColors.primary, width: 1.5),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(12),
+    ),
+  ),
+)
+```
+
+### Input Fields
+```dart
+TextField(
+  decoration: InputDecoration(
+    filled: true,
+    fillColor: AppColors.surface,
+    contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(12),
+      borderSide: BorderSide(color: AppColors.gray200, width: 1.5),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(12),
+      borderSide: BorderSide(color: AppColors.primary, width: 1.5),
+    ),
+  ),
+)
+```
+
+## 🎭 Animation Guidelines
+
+### Duration Standards
+```dart
+Duration(milliseconds: 200)  // Hızlı animasyonlar (hover, tap)
+Duration(milliseconds: 300)  // Standart animasyonlar (geçişler)
+Duration(milliseconds: 500)  // Yavaş animasyonlar (sayfa geçişleri)
+```
+
+### Curve Standards
+```dart
+Curves.easeInOut    // Standart geçişler
+Curves.easeOut      // Giriş animasyonları
+Curves.easeIn       // Çıkış animasyonları
+Curves.bounceOut    // Playful animasyonlar
+```
+
+## 📱 Layout Rules
+
+### Container Sizing
+```dart
+// Minimum touch targets
+minHeight: 48.0
+minWidth: 48.0
+
+// Navigation bar
+height: 60.0
+
+// AppBar
+height: 56.0 (default)
+
+// Card minimum height
+minHeight: 80.0
+```
+
+### Icon Sizes
+```dart
+16.0  // Small icons (status, indicators)
+18.0  // Navigation icons
+20.0  // Default icons
+24.0  // Large icons (headers)
+32.0  // Extra large icons (empty states)
+```
+
+## 🚫 Don'ts
+
+1. **Renk kullanımı**:
+   - Hardcoded hex renkler kullanmayın
+   - AppColors sınıfını kullanın
+
+2. **Spacing**:
+   - Rastgele padding/margin değerleri kullanmayın
+   - Spacing system'e uyun
+
+3. **Typography**:
+   - Rastgele font boyutları kullanmayın
+   - Belirlenen font scale'i takip edin
+
+4. **Shadows**:
+   - Çok koyu shadow'lar kullanmayın
+   - opacity: 0.05-0.1 arasında tutun
+
+## ✅ Best Practices
+
+1. **Consistency**: Tüm sayfalarda aynı component stillerini kullanın
+2. **Accessibility**: Minimum 48px touch target boyutu
+3. **Performance**: Gereksiz animasyon kullanmayın
+4. **Readability**: Yeterli contrast ratio sağlayın
+5. **Responsive**: Farklı ekran boyutlarını düşünün
+
+## 🎨 Status Colors Usage
+
+```dart
+// Randevu durumları
+'Bekliyor'    → AppColors.warning (turuncu)
+'Tamamlandı'  → AppColors.success (yeşil)
+'İptal'       → AppColors.error (kırmızı)
+'Onaylandı'   → AppColors.info (mavi)
+
+// Çalışan durumları
+'Müsait'      → AppColors.success
+'Meşgul'      → AppColors.error
+'Molada'      → AppColors.warning
+```
+
+## 📐 Component Specific Rules
+
+### Navigation Bar
+```dart
+height: 60.0
+padding: EdgeInsets.symmetric(horizontal: 20, vertical: 6)
+shadow: BoxShadow(
+  color: Colors.black.withOpacity(0.08),
+  blurRadius: 15,
+  offset: Offset(0, -3),
+)
+```
+
+### List Items
+```dart
+padding: EdgeInsets.all(16)
+margin: EdgeInsets.only(bottom: 12)
+borderRadius: BorderRadius.circular(16)
+```
+
+### Form Elements
+```dart
+padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14)
+borderRadius: BorderRadius.circular(12)
+borderWidth: 1.5
+```
+
+Bu design system kurallarını takip ederek tutarlı ve profesyonel bir UI oluşturun.
