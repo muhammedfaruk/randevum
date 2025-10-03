@@ -47,7 +47,7 @@ class CalendarView extends GetView<CalendarController> {
                     calendarFormat: controller.calendarFormat,
                     availableCalendarFormats: const {
                       CalendarFormat.month: 'Ay',
-                      CalendarFormat.twoWeeks: '2 Hafta',                  
+                      CalendarFormat.twoWeeks: '2 Hafta',
                     },
                     onDaySelected: controller.onDaySelected,
                     onFormatChanged: controller.onFormatChanged,
@@ -82,22 +82,39 @@ class CalendarView extends GetView<CalendarController> {
                     eventLoader: controller.getEventsForDay,
                   ),
                 ),
-                
+
                 // Kaydırılabilir alan göstergesi (takvim içinde)
-                Padding(
-                  padding: const EdgeInsets.only(top: 8, bottom: 12),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 40,
-                        height: 4,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor.withValues(alpha: 0.3),
-                          borderRadius: BorderRadius.circular(2),
+                GestureDetector(
+                  onVerticalDragUpdate: (details) {
+                    // Aşağı kaydırma (pozitif delta)
+                    if (details.delta.dy > 5) {
+                      if (controller.calendarFormat == CalendarFormat.twoWeeks) {
+                        controller.onFormatChanged(CalendarFormat.month);
+                      }
+                    }
+                    // Yukarı kaydırma (negatif delta)
+                    else if (details.delta.dy < -5) {
+                      if (controller.calendarFormat == CalendarFormat.month) {
+                        controller.onFormatChanged(CalendarFormat.twoWeeks);
+                      }
+                    }
+                  },
+                  child: Container(
+                    color: Colors.transparent,
+                    padding: const EdgeInsets.only(top: 8, bottom: 12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 40,
+                          height: 4,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor.withValues(alpha: 0.3),
+                            borderRadius: BorderRadius.circular(2),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],
