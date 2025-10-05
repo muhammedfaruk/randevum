@@ -1,5 +1,5 @@
+import 'package:erandevu/core/config/theme/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:randevum/core/config/theme/app_colors.dart';
 
 final class CustomDivider extends StatelessWidget {
   const CustomDivider({super.key});

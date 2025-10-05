@@ -65,12 +65,15 @@ final class StaffServicesView extends GetView<StaffServicesController> {
   }
 
   Widget _buildServicesTab(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        children: [
-          // Kategori filtreleri
-          SizedBox(
+    final horizontalPadding = EdgeInsets.symmetric(horizontal: 16); 
+    return Column(
+      spacing: 16,
+      children: [
+        SizedBox(height: 8,),
+        // Kategori filtreleri
+        Padding(
+          padding: horizontalPadding,
+          child: SizedBox(
             height: 50,
             child: GetBuilder<StaffServicesController>(
               id: 'category-filters',
@@ -80,7 +83,7 @@ final class StaffServicesView extends GetView<StaffServicesController> {
                 itemBuilder: (context, index) {
                   final category = controller.serviceCategories[index];
                   final isSelected = controller.selectedCategory == category;
-
+              
                   return Container(
                     margin: const EdgeInsets.only(right: 8),
                     child: FilterChip(
@@ -98,23 +101,22 @@ final class StaffServicesView extends GetView<StaffServicesController> {
               ),
             ),
           ),
-          const SizedBox(height: 16),
-
-          // Hizmetler listesi
-          Expanded(
-            child: GetBuilder<StaffServicesController>(
-              id: 'services-list',
-              builder: (controller) => ListView.builder(
-                itemCount: controller.filteredServices.length,
-                itemBuilder: (context, index) {
-                  final service = controller.filteredServices[index];
-                  return _buildServiceCard(context, service);
-                },
-              ),
+        ),           
+        // Hizmetler listesi
+        Expanded(
+          child: GetBuilder<StaffServicesController>(
+            id: 'services-list',
+            builder: (controller) => ListView.builder(
+              padding: horizontalPadding,
+              itemCount: controller.filteredServices.length,
+              itemBuilder: (context, index) {
+                final service = controller.filteredServices[index];
+                return _buildServiceCard(context, service);
+              },
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

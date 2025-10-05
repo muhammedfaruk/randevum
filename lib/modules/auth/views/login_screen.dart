@@ -85,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
       
                   // Title
                   const Text(
-                    'Randevum',
+                    'eRandevu',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 32,

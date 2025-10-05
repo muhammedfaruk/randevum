@@ -54,7 +54,7 @@ class _SplashScreenState extends State<SplashScreen> {
               const Icon(Icons.calendar_month, size: 100, color: AppColors.white),
               const SizedBox(height: 24),
               const Text(
-                'Randevum',
+                'eRandevu',
                 style: TextStyle(
                   fontSize: 48,
                   fontWeight: FontWeight.bold,
