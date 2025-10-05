@@ -19,14 +19,19 @@ AppColors.primaryDark    // #405880 - Koyu ton (outline, aktif durum)
 
 ```
 
-### Background Colors (Clean & Light)
+### Background Colors (Slate Dark with Gradients)
 
 ```dart
-AppColors.background     // #0B1014 - Ana arkaplan
-AppColors.surface        // #101818 - Kart/yüzey
-AppColors.surfaceVariant // #182024 - Alternatif yüzey/panel
-AppColors.divider        // #222A2E - Ayraç çizgi
+AppColors.background     // #0f172a - Ana arkaplan (slate-900)
+AppColors.backgroundAlt  // #1e293b - Alternatif arkaplan (slate-800)
+AppColors.surface        // #1e293b %80 - Kart/yüzey
+AppColors.surfaceAlt     // #0f172a %80 - Alternatif yüzey
+AppColors.divider        // #334155 %50 - Ayraç çizgi (slate-700)
 
+// Gradient Definitions
+AppColors.backgroundGradient  // Ana arkaplan gradient
+AppColors.cardGradient        // Kart arkaplan gradient
+AppColors.timeSlotGradient    // Saat kutusu gradient (blue-purple)
 ```
 
 ### Text Colors
@@ -45,6 +50,12 @@ AppColors.success        // #22C55E - Başarı (yeşil)
 AppColors.warning        // #F59E0B - Uyarı (turuncu)
 AppColors.error          // #EF4444 - Hata (kırmızı)
 AppColors.info           // #80B0F8 - Bilgi (primary ile hizalı)
+
+// Status Badge Colors (Yeni - Badge'ler için kullanın)
+AppColors.warningBg      // #F59E0B %20 - Bekliyor badge arka plan
+AppColors.warningText    // #FBBF24 - Bekliyor badge text (amber-400)
+AppColors.successBg      // #10B981 %20 - Tamamlandı badge arka plan
+AppColors.successText    // #34D399 - Tamamlandı badge text (emerald-400)
 ```
 
 ## 📐 Spacing System
@@ -125,18 +136,33 @@ FontWeight.bold  // Bold (emphasis)
 
 ## 🎯 Component Rules
 
-### Cards
+### Cards (Gradient Background)
 
 ```dart
 Container(
   decoration: BoxDecoration(
-    color: AppColors.surface,
-    borderRadius: BorderRadius.circular(16),
+    gradient: AppColors.cardGradient,
+    borderRadius: BorderRadius.circular(AppRadii.lg),
+    border: Border.all(
+      color: AppColors.divider,
+      width: 1,
+    ),
+  ),
+)
+```
+
+### Time Slot / Special Cards (Blue-Purple Gradient)
+
+```dart
+Container(
+  decoration: BoxDecoration(
+    gradient: AppColors.timeSlotGradient,
+    borderRadius: BorderRadius.circular(AppRadii.lg),
     boxShadow: [
       BoxShadow(
-        color: Colors.black.withOpacity(0.05),
-        blurRadius: 10,
-        offset: const Offset(0, 2),
+        color: Color(0x4D3b82f6), // blue-500 %30 opacity
+        blurRadius: 16,
+        spreadRadius: 0,
       ),
     ],
   ),
@@ -270,11 +296,11 @@ minHeight: 80.0
 ## 🎨 Status Colors Usage
 
 ```dart
-// Randevu durumları
-'Bekliyor'    → AppColors.warning (turuncu)
-'Tamamlandı'  → AppColors.success (yeşil)
-'İptal'       → AppColors.error (kırmızı)
-'Onaylandı'   → AppColors.info (mavi)
+// Randevu durumları (Badge kullanımı)
+'Bekliyor'    → bg: AppColors.warningBg, text: AppColors.warningText
+'Tamamlandı'  → bg: AppColors.successBg, text: AppColors.successText
+'İptal'       → bg: AppColors.error.withOpacity(0.2), text: AppColors.error
+'Onaylandı'   → bg: AppColors.info.withOpacity(0.2), text: AppColors.info
 
 // Çalışan durumları
 'Müsait'      → AppColors.success
@@ -282,7 +308,68 @@ minHeight: 80.0
 'Molada'      → AppColors.warning
 ```
 
+### Status Badge Component
+
+```dart
+Container(
+  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+  decoration: BoxDecoration(
+    color: status == 'Bekliyor' ? AppColors.warningBg : AppColors.successBg,
+    borderRadius: BorderRadius.circular(AppRadii.sm),
+  ),
+  child: Text(
+    status,
+    style: TextStyle(
+      color: status == 'Bekliyor' ? AppColors.warningText : AppColors.successText,
+      fontSize: 12,
+      fontWeight: FontWeight.w500,
+    ),
+  ),
+)
+```
+
 ## 📐 Component Specific Rules
+
+### Scaffold with Gradient Background (Standart Pattern)
+
+```dart
+// Tüm sayfalarda bu pattern'i kullanın
+Scaffold(
+  backgroundColor: Colors.transparent,
+  body: Container(
+    decoration: const BoxDecoration(
+      gradient: AppColors.backgroundGradient,
+    ),
+    child: SafeArea(
+      child: Column(
+        children: [
+          // AppBar (custom)
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Row(
+              children: [
+                Text(
+                  'Sayfa Başlığı',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          
+          // Sayfa içeriği
+          Expanded(
+            child: YourContent(),
+          ),
+        ],
+      ),
+    ),
+  ),
+)
+```
 
 ### Navigation Bar
 

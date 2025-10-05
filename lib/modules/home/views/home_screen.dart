@@ -27,41 +27,51 @@ class _HomeScreenState extends State<HomeScreen> {
     final authController = Get.find<AuthController>();
 
     return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: const Text('Randevularım'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () async {
-              await authController.logout();
-              Get.offAllNamed(AppRoutes.login);
-            },
-          ),
-        ],
-      ),
-      body: SafeArea(
+      backgroundColor: Colors.transparent,
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: AppColors.backgroundGradient,
+        ),
+        child: SafeArea(
           child: GetBuilder<HomeController>(
         id: 'home',
         builder: (controller) {
           return Column(
             children: [
+              // AppBar
+              Padding(
+                padding: const EdgeInsets.all(AppSpacing.s4),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Randevularım',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.textPrimary,
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.logout, color: AppColors.textPrimary),
+                      onPressed: () async {
+                        await authController.logout();
+                        Get.offAllNamed(AppRoutes.login);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              
               // User Info Card
               Container(
                 width: double.infinity,
-                margin: const EdgeInsets.all(AppSpacing.s4),
+                margin: const EdgeInsets.symmetric(horizontal: AppSpacing.s4),
                 padding: const EdgeInsets.all(AppSpacing.s4),
                 decoration: BoxDecoration(
-                  color: AppColors.surface,
+                  gradient: AppColors.cardGradient,
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: AppColors.gray100),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.04),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
+                  border: Border.all(color: AppColors.divider),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,11 +125,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             vertical: AppSpacing.s3,
                           ),
                           decoration: BoxDecoration(
-                            color: AppColors.surface,
+                            gradient: AppColors.cardGradient,
                             borderRadius: BorderRadius.circular(12),
                             border: Border.all(
-                              color: AppColors.gray200,
-                              width: 1.5,
+                              color: AppColors.divider,
+                              width: 1,
                             ),
                           ),
                           child: Column(
@@ -258,6 +268,7 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         },
         ),
+        ),
       ),
     );
   }
@@ -266,16 +277,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return Container(
       padding: const EdgeInsets.all(AppSpacing.s3),
       decoration: BoxDecoration(
-        color: AppColors.surface,
+        gradient: AppColors.cardGradient,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.gray100, width: 1),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
-          ),
-        ],
+        border: Border.all(color: AppColors.divider, width: 1),
       ),
       child: Column(
         children: [
@@ -305,29 +309,28 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildAppointmentCard(appointment) {
-    final statusColor = appointment.status == 'confirmed'
-        ? AppColors.success
+    final statusBgColor = appointment.status == 'confirmed'
+        ? AppColors.successBg
         : appointment.status == 'pending'
-            ? AppColors.warning
-            : AppColors.gray500;
+            ? AppColors.warningBg
+            : AppColors.error.withValues(alpha: 0.2);
+    
+    final statusTextColor = appointment.status == 'confirmed'
+        ? AppColors.successText
+        : appointment.status == 'pending'
+            ? AppColors.warningText
+            : AppColors.error;
 
     return Container(
       margin: const EdgeInsets.only(bottom: AppSpacing.s3),
       padding: const EdgeInsets.all(AppSpacing.s4),
       decoration: BoxDecoration(
-        color: AppColors.surface,
+        gradient: AppColors.cardGradient,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: AppColors.gray100,
+          color: AppColors.divider,
           width: 1,
         ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
-          ),
-        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -336,12 +339,12 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: AppSpacing.s2,
-                  vertical: AppSpacing.s1,
+                  horizontal: 12,
+                  vertical: 6,
                 ),
                 decoration: BoxDecoration(
-                  color: statusColor.withValues(alpha: 0.2),
-                  borderRadius: BorderRadius.circular(6),
+                  color: statusBgColor,
+                  borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
                   appointment.status == 'confirmed'
@@ -350,9 +353,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           ? 'Bekliyor'
                           : 'İptal',
                   style: TextStyle(
-                    color: statusColor,
+                    color: statusTextColor,
                     fontSize: 12,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ),

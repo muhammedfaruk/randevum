@@ -5,7 +5,7 @@ class AppTheme {
   static ThemeData get lightTheme => ThemeData(
         useMaterial3: true,        
         brightness: Brightness.dark,
-        scaffoldBackgroundColor: AppColors.background,
+        scaffoldBackgroundColor: AppColors.background, // Gradient container ile kullanılacak
         primaryColor: AppColors.primary,
         colorScheme: const ColorScheme.dark(
           primary: AppColors.primary,
@@ -29,14 +29,14 @@ class AppTheme {
             letterSpacing: -0.2,
           ),
         ),
-        cardTheme: const CardThemeData(
+        cardTheme: CardThemeData(
           elevation: 0,
-          color: AppColors.surface,
+          color: Colors.transparent, // Gradient kullanılacak
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(16)),
+            borderRadius: const BorderRadius.all(Radius.circular(16)),
             side: BorderSide(color: AppColors.divider, width: 1),
           ),
-          margin: EdgeInsets.all(0),
+          margin: const EdgeInsets.all(0),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(

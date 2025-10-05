@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/staff_services_controller.dart';
 import '../../../core/config/theme/app_radii.dart';
+import '../../../core/config/theme/app_colors.dart';
 
 final class StaffServicesView extends GetView<StaffServicesController> {
   const StaffServicesView({super.key});
@@ -10,32 +11,38 @@ final class StaffServicesView extends GetView<StaffServicesController> {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Yönetim'),
-          elevation: 0,
+      child: Container(
+        decoration: const BoxDecoration(
+          gradient: AppColors.backgroundGradient,
+        ),
+        child: Scaffold(
           backgroundColor: Colors.transparent,
-          foregroundColor: Theme.of(context).textTheme.titleLarge?.color,
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(40),
-            child: TabBar(
-              indicatorColor: Theme.of(context).primaryColor,
-              labelColor: Theme.of(context).primaryColor,
-              unselectedLabelColor: Colors.grey,
-              dividerColor: Colors.transparent,
-              labelPadding: const EdgeInsets.symmetric(vertical: 8),
-              tabs: const [
-                Tab(text: 'Hizmetler'),
-                Tab(text: 'Çalışanlar'),
-              ],
+          appBar: AppBar(
+            title: const Text('Yönetim'),
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            foregroundColor: AppColors.textPrimary,
+            bottom: PreferredSize(
+              preferredSize: const Size.fromHeight(40),
+              child: TabBar(
+                indicatorColor: AppColors.primary,
+                labelColor: AppColors.primary,
+                unselectedLabelColor: AppColors.textSecondary,
+                dividerColor: Colors.transparent,
+                labelPadding: const EdgeInsets.symmetric(vertical: 8),
+                tabs: const [
+                  Tab(text: 'Hizmetler'),
+                  Tab(text: 'Çalışanlar'),
+                ],
+              ),
             ),
           ),
-        ),
-        body: TabBarView(
-          children: [
-            _buildServicesTab(context),
-            _buildStaffTab(context),
-          ],
+          body: TabBarView(
+            children: [
+              _buildServicesTab(context),
+              _buildStaffTab(context),
+            ],
+          ),
         ),
       ),
     );
@@ -115,15 +122,12 @@ final class StaffServicesView extends GetView<StaffServicesController> {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.circular(AppRadii.sm),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
+        gradient: AppColors.cardGradient,
+        borderRadius: BorderRadius.circular(AppRadii.lg),
+        border: Border.all(
+          color: AppColors.divider,
+          width: 1,
+        ),
       ),
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -227,15 +231,12 @@ final class StaffServicesView extends GetView<StaffServicesController> {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.circular(AppRadii.sm),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
+        gradient: AppColors.cardGradient,
+        borderRadius: BorderRadius.circular(AppRadii.lg),
+        border: Border.all(
+          color: AppColors.divider,
+          width: 1,
+        ),
       ),
       child: Padding(
         padding: const EdgeInsets.all(16),
