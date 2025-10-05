@@ -189,7 +189,7 @@ class CalendarView extends GetView<CalendarController> {
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(AppRadii.sm),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.05),

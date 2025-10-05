@@ -24,7 +24,7 @@ final class StaffServicesView extends GetView<StaffServicesController> {
               unselectedLabelColor: Colors.grey,
               dividerColor: Colors.transparent,
               labelPadding: const EdgeInsets.symmetric(vertical: 8),
-              tabs: const [                
+              tabs: const [
                 Tab(text: 'Hizmetler'),
                 Tab(text: 'Çalışanlar'),
               ],
@@ -34,7 +34,7 @@ final class StaffServicesView extends GetView<StaffServicesController> {
         body: TabBarView(
           children: [
             _buildServicesTab(context),
-            _buildStaffTab(context),            
+            _buildStaffTab(context),
           ],
         ),
       ),
@@ -82,6 +82,9 @@ final class StaffServicesView extends GetView<StaffServicesController> {
                       onSelected: (selected) => controller.selectCategory(category),
                       selectedColor: Theme.of(context).primaryColor.withValues(alpha: 0.2),
                       checkmarkColor: Theme.of(context).primaryColor,
+                      labelStyle: TextStyle(
+                        color: isSelected ? Colors.white : Colors.grey,
+                      ),
                     ),
                   );
                 },
