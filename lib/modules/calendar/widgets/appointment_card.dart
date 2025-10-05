@@ -17,7 +17,7 @@ final class AppointmentCard extends StatelessWidget {
     final status = appointment['status'] ?? 'Bekliyor';
 
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
+      margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
         gradient: AppColors.cardGradient,
         borderRadius: BorderRadius.circular(AppRadii.lg),
@@ -32,7 +32,7 @@ final class AppointmentCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(AppRadii.lg),
           onTap: onTap,
           child: Padding(
-            padding: const EdgeInsets.all(24),
+            padding: const EdgeInsets.all(16),
             child: Row(
               children: [
                 // Sol taraf - Saat kutusu (koyu gradient)
@@ -46,33 +46,33 @@ final class AppointmentCard extends StatelessWidget {
                         Color(0xFF1e293b), // slate-800
                       ],
                     ),
-                    borderRadius: BorderRadius.circular(AppRadii.lg),
+                    borderRadius: BorderRadius.circular(12),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withValues(alpha: 0.2),
-                        blurRadius: 16,
+                        blurRadius: 12,
                         spreadRadius: 0,
                       ),
                     ],
                   ),
-                  padding: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
                         _getHour(appointment['time']),
                         style: const TextStyle(
-                          fontSize: 28,
+                          fontSize: 22,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                           height: 1,
                         ),
                       ),
-                      const SizedBox(height: 4),
+                      const SizedBox(height: 2),
                       Text(
                         _getMinute(appointment['time']),
                         style: const TextStyle(
-                          fontSize: 20,
+                          fontSize: 16,
                           fontWeight: FontWeight.w600,
                           color: Color(0xFFcbd5e1), // slate-300
                         ),
@@ -80,7 +80,7 @@ final class AppointmentCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(width: 24),
+                const SizedBox(width: 16),
 
                 // Orta - Bilgiler
                 Expanded(
@@ -90,29 +90,29 @@ final class AppointmentCard extends StatelessWidget {
                       Text(
                         appointment['customerName'] ?? 'Müşteri',
                         style: const TextStyle(
-                          fontSize: 20,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      const SizedBox(height: 4),
+                      const SizedBox(height: 2),
                       Text(
                         appointment['service'] ?? 'Hizmet',
                         style: const TextStyle(
-                          fontSize: 14,
+                          fontSize: 13,
                           color: Color(0xFF94a3b8), // slate-400
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      const SizedBox(height: 12),
+                      const SizedBox(height: 8),
                       // Durum Badge (subtle design)
                       Container(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 6,
+                          horizontal: 10,
+                          vertical: 4,
                         ),
                         decoration: BoxDecoration(
                           color: _getStatusBgColor(status),
@@ -126,18 +126,18 @@ final class AppointmentCard extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Container(
-                              width: 6,
-                              height: 6,
+                              width: 5,
+                              height: 5,
                               decoration: BoxDecoration(
                                 color: _getStatusDotColor(status),
                                 shape: BoxShape.circle,
                               ),
                             ),
-                            const SizedBox(width: 6),
+                            const SizedBox(width: 5),
                             Text(
                               status,
                               style: TextStyle(
-                                fontSize: 12,
+                                fontSize: 11,
                                 fontWeight: FontWeight.w600,
                                 color: _getStatusTextColor(status),
                               ),
@@ -148,12 +148,12 @@ final class AppointmentCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(width: 16),
+                const SizedBox(width: 12),
 
                 // Sağ taraf - Avatar (subtle design)
                 Container(
-                  width: 56,
-                  height: 56,
+                  width: 44,
+                  height: 44,
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
                       begin: Alignment.topLeft,
@@ -163,7 +163,7 @@ final class AppointmentCard extends StatelessWidget {
                         Color(0xFF1e293b), // slate-800
                       ],
                     ),
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(10),
                     border: Border.all(
                       color: const Color(0x80475569), // slate-600 %50
                       width: 1,
@@ -172,7 +172,7 @@ final class AppointmentCard extends StatelessWidget {
                   child: const Icon(
                     Icons.person,
                     color: Color(0xFF94a3b8), // slate-400
-                    size: 28,
+                    size: 22,
                   ),
                 ),
               ],
