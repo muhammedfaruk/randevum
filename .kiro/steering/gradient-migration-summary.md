@@ -75,7 +75,7 @@ Scaffold(
 Container(
   decoration: BoxDecoration(
     gradient: AppColors.cardGradient,
-    borderRadius: BorderRadius.circular(AppRadii.lg),
+    borderRadius: BorderRadius.circular(AppRadii.sm), // ⚠️ Her zaman sm (8.0)
     border: Border.all(
       color: AppColors.divider,
       width: 1,
@@ -111,7 +111,20 @@ Container(
 2. **Card color**: `Theme.of(context).cardColor` yerine gradient kullanın
 3. **Status badges**: Yeni badge color system kullanın
 4. **Border colors**: `AppColors.divider` kullanın
-5. **Border radius**: `AppRadii.lg` (16) kartlar için standart
+5. **Border radius**: `AppRadii.sm` (8) - HER ZAMAN 8 KULLANIN
+
+## 📐 Border Radius Kuralı (YENİ)
+
+**KRITIK**: Tüm UI elementleri için sadece `AppRadii.sm` (8.0) kullanın:
+
+- ✅ Kartlar: `BorderRadius.circular(AppRadii.sm)`
+- ✅ Button'lar: `BorderRadius.circular(AppRadii.sm)`
+- ✅ Input'lar: `BorderRadius.circular(AppRadii.sm)`
+- ✅ Badge'ler: `BorderRadius.circular(AppRadii.sm)`
+- ✅ Container'lar: `BorderRadius.circular(AppRadii.sm)`
+- ✅ Avatar'lar: `BorderRadius.circular(AppRadii.full)` (tam yuvarlak)
+
+**ASLA kullanmayın**: md (12), lg (16), xl (24) - Sadece sm ve full kullanın!
 
 ## 🧩 Widget Organization
 

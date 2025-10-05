@@ -30,6 +30,7 @@ final class StaffServicesView extends GetView<StaffServicesController> {
                 unselectedLabelColor: AppColors.textSecondary,
                 dividerColor: Colors.transparent,
                 labelPadding: const EdgeInsets.symmetric(vertical: 8),
+                overlayColor: WidgetStateProperty.all(Colors.transparent),
                 tabs: const [
                   Tab(text: 'Hizmetler'),
                   Tab(text: 'Çalışanlar'),
@@ -54,9 +55,12 @@ final class StaffServicesView extends GetView<StaffServicesController> {
       child: GetBuilder<StaffServicesController>(
         id: 'staff-list',
         builder: (controller) => ListView.builder(
-          itemCount: controller.filteredStaff.length,
+          itemCount: controller.filteredStaff.length + 1,
           itemBuilder: (context, index) {
-            final staff = controller.filteredStaff[index];
+            if (index == 0) {
+              return _buildAddStaffCard(context);
+            }
+            final staff = controller.filteredStaff[index - 1];
             return _buildStaffCard(context, staff);
           },
         ),
@@ -65,58 +69,21 @@ final class StaffServicesView extends GetView<StaffServicesController> {
   }
 
   Widget _buildServicesTab(BuildContext context) {
-    final horizontalPadding = EdgeInsets.symmetric(horizontal: 16); 
-    return Column(
-      spacing: 16,
-      children: [
-        SizedBox(height: 8,),
-        // Kategori filtreleri
-        Padding(
-          padding: horizontalPadding,
-          child: SizedBox(
-            height: 50,
-            child: GetBuilder<StaffServicesController>(
-              id: 'category-filters',
-              builder: (controller) => ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: controller.serviceCategories.length,
-                itemBuilder: (context, index) {
-                  final category = controller.serviceCategories[index];
-                  final isSelected = controller.selectedCategory == category;
-              
-                  return Container(
-                    margin: const EdgeInsets.only(right: 8),
-                    child: FilterChip(
-                      label: Text(category),
-                      selected: isSelected,
-                      onSelected: (selected) => controller.selectCategory(category),
-                      selectedColor: Theme.of(context).primaryColor.withValues(alpha: 0.2),
-                      checkmarkColor: Theme.of(context).primaryColor,
-                      labelStyle: TextStyle(
-                        color: isSelected ? Colors.white : Colors.grey,
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-          ),
-        ),           
-        // Hizmetler listesi
-        Expanded(
-          child: GetBuilder<StaffServicesController>(
-            id: 'services-list',
-            builder: (controller) => ListView.builder(
-              padding: horizontalPadding,
-              itemCount: controller.filteredServices.length,
-              itemBuilder: (context, index) {
-                final service = controller.filteredServices[index];
-                return _buildServiceCard(context, service);
-              },
-            ),
-          ),
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: GetBuilder<StaffServicesController>(
+        id: 'services-list',
+        builder: (controller) => ListView.builder(
+          itemCount: controller.filteredServices.length + 1,
+          itemBuilder: (context, index) {
+            if (index == 0) {
+              return _buildAddServiceCard(context);
+            }
+            final service = controller.filteredServices[index - 1];
+            return _buildServiceCard(context, service);
+          },
         ),
-      ],
+      ),
     );
   }
 
@@ -125,7 +92,7 @@ final class StaffServicesView extends GetView<StaffServicesController> {
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
         gradient: AppColors.cardGradient,
-        borderRadius: BorderRadius.circular(AppRadii.lg),
+        borderRadius: BorderRadius.circular(AppRadii.sm),
         border: Border.all(
           color: AppColors.divider,
           width: 1,
@@ -234,7 +201,7 @@ final class StaffServicesView extends GetView<StaffServicesController> {
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
         gradient: AppColors.cardGradient,
-        borderRadius: BorderRadius.circular(AppRadii.lg),
+        borderRadius: BorderRadius.circular(AppRadii.sm),
         border: Border.all(
           color: AppColors.divider,
           width: 1,
@@ -313,6 +280,154 @@ final class StaffServicesView extends GetView<StaffServicesController> {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAddServiceCard(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      decoration: BoxDecoration(
+        gradient: AppColors.cardGradient,
+        borderRadius: BorderRadius.circular(AppRadii.sm),
+        border: Border.all(
+          color: AppColors.primary.withValues(alpha: 0.5),
+          width: 1.5,
+        ),
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(AppRadii.sm),
+          onTap: () => controller.addNewService(),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Row(
+              children: [
+                Container(
+                  width: 48,
+                  height: 48,
+                  decoration: BoxDecoration(
+                    color: AppColors.primary.withValues(alpha: 0.2),
+                    borderRadius: BorderRadius.circular(AppRadii.sm),
+                    border: Border.all(
+                      color: AppColors.primary.withValues(alpha: 0.3),
+                      width: 1,
+                    ),
+                  ),
+                  child: const Icon(
+                    Icons.add_rounded,
+                    color: AppColors.primary,
+                    size: 28,
+                  ),
+                ),
+                const SizedBox(width: 16),
+                const Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Yeni Hizmet Ekle',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.textPrimary,
+                        ),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        'Yeni bir hizmet tanımlayın',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: AppColors.textSecondary,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  color: AppColors.primary,
+                  size: 20,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAddStaffCard(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      decoration: BoxDecoration(
+        gradient: AppColors.cardGradient,
+        borderRadius: BorderRadius.circular(AppRadii.sm),
+        border: Border.all(
+          color: AppColors.primary.withValues(alpha: 0.5),
+          width: 1.5,
+        ),
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(AppRadii.sm),
+          onTap: () => controller.addNewStaff(),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Row(
+              children: [
+                Container(
+                  width: 48,
+                  height: 48,
+                  decoration: BoxDecoration(
+                    color: AppColors.primary.withValues(alpha: 0.2),
+                    borderRadius: BorderRadius.circular(AppRadii.sm),
+                    border: Border.all(
+                      color: AppColors.primary.withValues(alpha: 0.3),
+                      width: 1,
+                    ),
+                  ),
+                  child: const Icon(
+                    Icons.person_add_rounded,
+                    color: AppColors.primary,
+                    size: 28,
+                  ),
+                ),
+                const SizedBox(width: 16),
+                const Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Yeni Çalışan Ekle',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.textPrimary,
+                        ),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        'Ekibinize yeni üye ekleyin',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: AppColors.textSecondary,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  color: AppColors.primary,
+                  size: 20,
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

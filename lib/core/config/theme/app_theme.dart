@@ -3,10 +3,13 @@ import 'app_colors.dart';
 
 class AppTheme {
   static ThemeData get lightTheme => ThemeData(
-        useMaterial3: true,        
+        useMaterial3: true,
         brightness: Brightness.dark,
         scaffoldBackgroundColor: AppColors.background, // Gradient container ile kullanılacak
         primaryColor: AppColors.primary,
+        splashFactory: NoSplash.splashFactory,
+        highlightColor: Colors.transparent,
+        hoverColor: Colors.transparent,
         colorScheme: const ColorScheme.dark(
           primary: AppColors.primary,
           secondary: AppColors.primaryLight,
@@ -101,6 +104,10 @@ class AppTheme {
             color: AppColors.textSecondary,
             fontSize: 14,
           ),
+        ),
+        tabBarTheme: const TabBarThemeData(
+          overlayColor: WidgetStatePropertyAll(Colors.transparent),
+          splashFactory: NoSplash.splashFactory,
         ),
       );
 

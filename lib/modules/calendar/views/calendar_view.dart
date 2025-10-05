@@ -43,7 +43,7 @@ final class CalendarView extends GetView<CalendarController> {
               margin: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 gradient: AppColors.cardGradient,
-                borderRadius: BorderRadius.circular(AppRadii.lg),
+                borderRadius: BorderRadius.circular(AppRadii.sm),
                 border: Border.all(
                   color: AppColors.divider,
                   width: 1,

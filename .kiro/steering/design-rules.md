@@ -83,25 +83,32 @@ AppColors.successText    // #34D399 - Tamamlandı badge text (emerald-400)
 import '../../../core/config/theme/app_radii.dart';
 
 // Radius değerleri
-AppRadii.sm   // 8.0  - Default (her zaman kullanın)
-AppRadii.md   // 12.0 - Orta köşeler
-AppRadii.lg   // 16.0 - Büyük köşeler
-AppRadii.xl   // 24.0 - Ekstra büyük
-AppRadii.x2l  // 32.0 - Çok büyük
-AppRadii.x3l  // 48.0 - Maximum
-AppRadii.full // 9999.0 - Tam yuvarlak
+AppRadii.sm   // 8.0  - DEFAULT (TÜM KARTLAR VE COMPONENTLER İÇİN)
+AppRadii.md   // 12.0 - Kullanılmıyor
+AppRadii.lg   // 16.0 - Kullanılmıyor
+AppRadii.xl   // 24.0 - Kullanılmıyor
+AppRadii.x2l  // 32.0 - Kullanılmıyor
+AppRadii.x3l  // 48.0 - Kullanılmıyor
+AppRadii.full // 9999.0 - Tam yuvarlak (avatar, badge)
+
+// ⚠️ ÖNEMLI KURAL: HER ZAMAN AppRadii.sm (8.0) KULLANIN
+// Tüm kartlar, container'lar, button'lar için default radius 8.0'dır
 
 // Kullanım örnekleri
-BorderRadius.circular(AppRadii.sm)   // Default - her zaman kullanın
-BorderRadius.circular(AppRadii.md)   // Özel durumlar için
-BorderRadius.circular(AppRadii.lg)   // Büyük kartlar için
+BorderRadius.circular(AppRadii.sm)   // ✅ Kartlar için
+BorderRadius.circular(AppRadii.sm)   // ✅ Button'lar için
+BorderRadius.circular(AppRadii.sm)   // ✅ Input field'lar için
+BorderRadius.circular(AppRadii.sm)   // ✅ Badge'ler için
+BorderRadius.circular(AppRadii.full) // ✅ Avatar'lar için (tam yuvarlak)
 
-// ❌ Yapmayın
+// ❌ ASLA YAPMAYIN
 BorderRadius.circular(12)  // Hardcoded değer
 BorderRadius.circular(16)  // Hardcoded değer
+BorderRadius.circular(AppRadii.md)  // md, lg, xl kullanmayın
+BorderRadius.circular(AppRadii.lg)  // Sadece sm veya full kullanın
 
-// ✅ Yapın
-BorderRadius.circular(AppRadii.sm)  // Default radius
+// ✅ DOĞRU KULLANIM
+BorderRadius.circular(AppRadii.sm)  // Her zaman sm (8.0)
 ```
 
 ## 🔤 Typography
@@ -301,6 +308,31 @@ minHeight: 80.0
    - Çok koyu shadow'lar kullanmayın
    - opacity: 0.05-0.1 arasında tutun
 
+## 🎨 Interaction States
+
+### Splash/Ripple Effect (Devre Dışı)
+
+Uygulama genelinde splash/ripple effect'ler kapalıdır:
+
+```dart
+// Theme'de global ayar
+ThemeData(
+  splashFactory: NoSplash.splashFactory,
+  highlightColor: Colors.transparent,
+  hoverColor: Colors.transparent,
+  tabBarTheme: TabBarThemeData(
+    overlayColor: WidgetStatePropertyAll(Colors.transparent),
+    splashFactory: NoSplash.splashFactory,
+  ),
+)
+
+// TabBar'da
+TabBar(
+  overlayColor: WidgetStateProperty.all(Colors.transparent),
+  tabs: [...],
+)
+```
+
 ## ✅ Best Practices
 
 1. **Consistency**: Tüm sayfalarda aynı component stillerini kullanın
@@ -308,6 +340,7 @@ minHeight: 80.0
 3. **Performance**: Gereksiz animasyon kullanmayın
 4. **Readability**: Yeterli contrast ratio sağlayın
 5. **Responsive**: Farklı ekran boyutlarını düşünün
+6. **No Splash**: Splash/ripple effect'ler kapalı (daha temiz görünüm)
 
 ## 🎨 Status Colors Usage
 
@@ -394,7 +427,7 @@ Scaffold(
               ],
             ),
           ),
-          
+
           // Sayfa içeriği
           Expanded(
             child: YourContent(),
@@ -432,6 +465,77 @@ borderRadius: BorderRadius.circular(16)
 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14)
 borderRadius: BorderRadius.circular(12)
 borderWidth: 1.5
+```
+
+## ➕ Add Button Pattern (Modern)
+
+### Floating Button Yerine Liste Başında Öne Çıkan Kart
+
+Floating action button yerine, listenin en başına primary border'lı, öne çıkan bir "Ekle" kartı kullanın:
+
+```dart
+Widget _buildAddCard(BuildContext context) {
+  return Container(
+    margin: const EdgeInsets.only(bottom: 16),
+    decoration: BoxDecoration(
+      gradient: AppColors.cardGradient, // Temaya uygun gradient
+      borderRadius: BorderRadius.circular(AppRadii.sm),
+      border: Border.all(
+        color: AppColors.primary.withValues(alpha: 0.5), // Primary border
+        width: 1.5,
+      ),
+    ),
+    child: Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(AppRadii.sm),
+        onTap: () => controller.addNew(),
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Row(
+            children: [
+              Container(
+                width: 48,
+                height: 48,
+                decoration: BoxDecoration(
+                  color: AppColors.primary.withValues(alpha: 0.2),
+                  borderRadius: BorderRadius.circular(AppRadii.sm),
+                  border: Border.all(
+                    color: AppColors.primary.withValues(alpha: 0.3),
+                    width: 1,
+                  ),
+                ),
+                child: Icon(Icons.add_rounded, color: AppColors.primary, size: 28),
+              ),
+              SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Yeni Ekle', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                    SizedBox(height: 4),
+                    Text('Açıklama', style: TextStyle(fontSize: 14, color: AppColors.textSecondary)),
+                  ],
+                ),
+              ),
+              Icon(Icons.arrow_forward_ios_rounded, color: AppColors.primary, size: 20),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+// ListView'da kullanım
+ListView.builder(
+  itemCount: items.length + 1, // +1 for add card
+  itemBuilder: (context, index) {
+    if (index == 0) return _buildAddCard(context);
+    final item = items[index - 1];
+    return _buildItemCard(context, item);
+  },
+)
 ```
 
 ## 🧩 Widget Organization Pattern

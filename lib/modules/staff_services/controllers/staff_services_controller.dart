@@ -144,4 +144,20 @@ class StaffServicesController extends GetxController {
       snackPosition: SnackPosition.BOTTOM,
     );
   }
+
+  void addNewService() {
+    Get.snackbar(
+      'Yeni Hizmet',
+      'Hizmet ekleme sayfası yakında eklenecek',
+      snackPosition: SnackPosition.BOTTOM,
+    );
+  }
+
+  void addNewStaff() {
+    Get.snackbar(
+      'Yeni Çalışan',
+      'Çalışan ekleme sayfası yakında eklenecek',
+      snackPosition: SnackPosition.BOTTOM,
+    );
+  }
 }

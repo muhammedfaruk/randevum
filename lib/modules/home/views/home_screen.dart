@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../../core/config/theme/app_colors.dart';
 import '../../../core/config/theme/app_spacing.dart';
+import '../../../core/config/theme/app_radii.dart';
 import '../../../core/routes/app_routes.dart';
 import '../../auth/auth_controller.dart';
 import '../home_controller.dart';
@@ -70,7 +71,7 @@ final class _HomeScreenState extends State<HomeScreen> {
                     padding: const EdgeInsets.all(AppSpacing.s4),
                     decoration: BoxDecoration(
                       gradient: AppColors.cardGradient,
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(AppRadii.sm),
                       border: Border.all(color: AppColors.divider),
                     ),
                     child: Column(
@@ -126,7 +127,7 @@ final class _HomeScreenState extends State<HomeScreen> {
                               ),
                               decoration: BoxDecoration(
                                 gradient: AppColors.cardGradient,
-                                borderRadius: BorderRadius.circular(12),
+                                borderRadius: BorderRadius.circular(AppRadii.sm),
                                 border: Border.all(
                                   color: AppColors.divider,
                                   width: 1,
@@ -278,7 +279,7 @@ final class _HomeScreenState extends State<HomeScreen> {
       padding: const EdgeInsets.all(AppSpacing.s3),
       decoration: BoxDecoration(
         gradient: AppColors.cardGradient,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(AppRadii.sm),
         border: Border.all(color: AppColors.divider, width: 1),
       ),
       child: Column(
@@ -326,7 +327,7 @@ final class _HomeScreenState extends State<HomeScreen> {
       padding: const EdgeInsets.all(AppSpacing.s4),
       decoration: BoxDecoration(
         gradient: AppColors.cardGradient,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(AppRadii.sm),
         border: Border.all(
           color: AppColors.divider,
           width: 1,
@@ -344,7 +345,7 @@ final class _HomeScreenState extends State<HomeScreen> {
                 ),
                 decoration: BoxDecoration(
                   color: statusBgColor,
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(AppRadii.sm),
                 ),
                 child: Text(
                   appointment.status == 'confirmed'
