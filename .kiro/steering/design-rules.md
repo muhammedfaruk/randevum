@@ -151,19 +151,35 @@ Container(
 )
 ```
 
-### Time Slot / Special Cards (Blue-Purple Gradient)
+### Time Slot Box (Subtle Dark Gradient)
 
 ```dart
+// Saat kutusu için koyu gradient
 Container(
   decoration: BoxDecoration(
-    gradient: AppColors.timeSlotGradient,
+    gradient: LinearGradient(
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      colors: [
+        Color(0xFF334155), // slate-700
+        Color(0xFF1e293b), // slate-800
+      ],
+    ),
     borderRadius: BorderRadius.circular(AppRadii.lg),
     boxShadow: [
       BoxShadow(
-        color: Color(0x4D3b82f6), // blue-500 %30 opacity
+        color: Colors.black.withOpacity(0.2),
         blurRadius: 16,
         spreadRadius: 0,
       ),
+    ],
+  ),
+  padding: EdgeInsets.all(16),
+  child: Column(
+    children: [
+      Text('09', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white)),
+      SizedBox(height: 4),
+      Text('00', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Color(0xFFcbd5e1))),
     ],
   ),
 )
@@ -308,22 +324,41 @@ minHeight: 80.0
 'Molada'      → AppColors.warning
 ```
 
-### Status Badge Component
+### Status Badge Component (Subtle Design)
 
 ```dart
+// Yeni subtle badge tasarımı (slate tonları)
 Container(
   padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
   decoration: BoxDecoration(
-    color: status == 'Bekliyor' ? AppColors.warningBg : AppColors.successBg,
-    borderRadius: BorderRadius.circular(AppRadii.sm),
-  ),
-  child: Text(
-    status,
-    style: TextStyle(
-      color: status == 'Bekliyor' ? AppColors.warningText : AppColors.successText,
-      fontSize: 12,
-      fontWeight: FontWeight.w500,
+    color: Color(0x80334155), // slate-700 %50
+    borderRadius: BorderRadius.circular(20),
+    border: Border.all(
+      color: Color(0x80475569), // slate-600 %50
+      width: 1,
     ),
+  ),
+  child: Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Container(
+        width: 6,
+        height: 6,
+        decoration: BoxDecoration(
+          color: Color(0xFF94a3b8), // slate-400
+          shape: BoxShape.circle,
+        ),
+      ),
+      SizedBox(width: 6),
+      Text(
+        'Bekliyor',
+        style: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+          color: Color(0xFFcbd5e1), // slate-300
+        ),
+      ),
+    ],
   ),
 )
 ```
@@ -397,6 +432,69 @@ borderRadius: BorderRadius.circular(16)
 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14)
 borderRadius: BorderRadius.circular(12)
 borderWidth: 1.5
+```
+
+## 🧩 Widget Organization Pattern
+
+### Custom Widget Oluşturma
+
+Karmaşık veya tekrar kullanılabilir UI componentleri için ayrı widget dosyaları oluşturun:
+
+```
+lib/modules/[module_name]/widgets/
+├── appointment_card.dart
+├── status_badge.dart
+└── custom_button.dart
+```
+
+### Widget Template
+
+```dart
+import 'package:flutter/material.dart';
+import '../../../core/config/theme/app_colors.dart';
+import '../../../core/config/theme/app_radii.dart';
+
+class AppointmentCard extends StatelessWidget {
+  final Map<String, dynamic> appointment;
+  final VoidCallback? onTap;
+
+  const AppointmentCard({
+    super.key,
+    required this.appointment,
+    this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: AppColors.cardGradient,
+          borderRadius: BorderRadius.circular(AppRadii.lg),
+          border: Border.all(
+            color: AppColors.divider,
+            width: 1,
+          ),
+        ),
+        child: YourContent(),
+      ),
+    );
+  }
+}
+```
+
+### View'da Kullanım
+
+```dart
+// Import
+import '../widgets/appointment_card.dart';
+
+// Kullanım
+AppointmentCard(
+  appointment: appointment,
+  onTap: () => controller.handleTap(),
+)
 ```
 
 Bu design system kurallarını takip ederek tutarlı ve profesyonel bir UI oluşturun.

@@ -113,6 +113,32 @@ Container(
 4. **Border colors**: `AppColors.divider` kullanın
 5. **Border radius**: `AppRadii.lg` (16) kartlar için standart
 
+## 🧩 Widget Organization
+
+### Yeni Pattern: Ayrı Widget Dosyaları
+
+Karmaşık UI componentleri artık ayrı widget dosyalarında:
+
+```
+lib/modules/calendar/widgets/
+└── appointment_card.dart  ✅ Oluşturuldu
+```
+
+### Widget Özellikleri
+- ✅ StatelessWidget kullanımı
+- ✅ Gradient background desteği
+- ✅ Yeni badge color system
+- ✅ Modern saat kutusu tasarımı (gradient)
+- ✅ Responsive layout
+
+### Kullanım
+```dart
+AppointmentCard(
+  appointment: appointment,
+  onTap: () => controller.handleTap(),
+)
+```
+
 ## 🚀 Sonraki Adımlar
 
 Diğer view dosyaları da aynı pattern ile güncellenebilir:
@@ -120,3 +146,5 @@ Diğer view dosyaları da aynı pattern ile güncellenebilir:
 - Branch views
 - Splash view
 - Diğer custom view'lar
+
+Her modül için widgets klasörü oluşturulup, tekrar kullanılabilir componentler ayrılabilir.

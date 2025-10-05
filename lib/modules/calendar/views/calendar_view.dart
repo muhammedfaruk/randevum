@@ -4,10 +4,9 @@ import 'package:table_calendar/table_calendar.dart';
 import '../controllers/calendar_controller.dart';
 import '../../../core/config/theme/app_colors.dart';
 import '../../../core/config/theme/app_radii.dart';
+import '../widgets/appointment_card.dart';
 
-part '../widgets/appointment_card.dart';
-
-class CalendarView extends GetView<CalendarController> {
+final class CalendarView extends GetView<CalendarController> {
   const CalendarView({super.key});
 
   @override
@@ -151,8 +150,7 @@ class CalendarView extends GetView<CalendarController> {
                               fontWeight: FontWeight.bold,
                             ),
                       ),
-                    ),
-                    const SizedBox(height: 16),
+                    ),                    
                     Expanded(
                       child: GetBuilder<CalendarController>(
                         id: 'appointments-list',
@@ -179,9 +177,15 @@ class CalendarView extends GetView<CalendarController> {
                               )
                             : ListView.builder(
                                 itemCount: controller.selectedDayAppointments.length,
+                                padding: EdgeInsets.only(top: 16),
                                 itemBuilder: (context, index) {
                                   final appointment = controller.selectedDayAppointments[index];
-                                  return _buildAppointmentCard(context, appointment);
+                                  return AppointmentCard(
+                                    appointment: appointment,
+                                    onTap: () {
+                                      // Randevu detaylarını göster
+                                    },
+                                  );
                                 },
                               ),
                       ),
@@ -198,95 +202,5 @@ class CalendarView extends GetView<CalendarController> {
         child: const Icon(Icons.add),
       ),
     );
-  }
-
-  Widget _buildAppointmentCard(BuildContext context, Map<String, dynamic> appointment) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      decoration: BoxDecoration(
-        gradient: AppColors.cardGradient,
-        borderRadius: BorderRadius.circular(AppRadii.lg),
-        border: Border.all(
-          color: AppColors.divider,
-          width: 1,
-        ),
-      ),
-      child: ListTile(
-        contentPadding: const EdgeInsets.all(16),
-        leading: Container(
-          width: 50,
-          height: 50,
-          decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Icon(
-            Icons.person,
-            color: Theme.of(context).primaryColor,
-          ),
-        ),
-        title: Text(
-          appointment['customerName'] ?? 'Müşteri',
-          style: const TextStyle(fontWeight: FontWeight.bold),
-        ),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 4),
-            Text(appointment['service'] ?? 'Hizmet'),
-            const SizedBox(height: 2),
-            Row(
-              children: [
-                Icon(Icons.access_time, size: 16, color: Colors.grey[600]),
-                const SizedBox(width: 4),
-                Text(
-                  appointment['time'] ?? '00:00',
-                  style: TextStyle(color: Colors.grey[600]),
-                ),
-              ],
-            ),
-          ],
-        ),
-        trailing: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-          decoration: BoxDecoration(
-            color: _getStatusBgColor(appointment['status']),
-            borderRadius: BorderRadius.circular(AppRadii.sm),
-          ),
-          child: Text(
-            appointment['status'] ?? 'Bekliyor',
-            style: TextStyle(
-              color: _getStatusTextColor(appointment['status']),
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Color _getStatusBgColor(String? status) {
-    switch (status) {
-      case 'Tamamlandı':
-        return AppColors.successBg;
-      case 'İptal':
-        return AppColors.error.withValues(alpha: 0.2);
-      case 'Bekliyor':
-      default:
-        return AppColors.warningBg;
-    }
-  }
-
-  Color _getStatusTextColor(String? status) {
-    switch (status) {
-      case 'Tamamlandı':
-        return AppColors.successText;
-      case 'İptal':
-        return AppColors.error;
-      case 'Bekliyor':
-      default:
-        return AppColors.warningText;
-    }
   }
 }

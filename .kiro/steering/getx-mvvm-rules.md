@@ -205,6 +205,69 @@ void updateCounter() {
 }
 ```
 
+## 📁 Widget Organization
+
+### Custom Widget Kuralları
+
+1. **Ayrı Widget Dosyaları**: Karmaşık veya tekrar kullanılabilir widget'lar için ayrı dosya oluşturun
+2. **Klasör Yapısı**: Her modülün altında `widgets/` klasörü olmalı
+3. **StatelessWidget Kullanımı**: Custom widget'lar için StatelessWidget tercih edin
+4. **Naming Convention**: Widget dosya adı snake_case, class adı PascalCase
+
+```
+lib/
+└── modules/
+    └── [module_name]/
+        ├── controllers/
+        ├── views/
+        ├── models/
+        ├── services/
+        └── widgets/          # Custom widget'lar burada
+            ├── appointment_card.dart
+            ├── custom_button.dart
+            └── status_badge.dart
+```
+
+### Widget Dosya Yapısı
+
+```dart
+// lib/modules/calendar/widgets/appointment_card.dart
+import 'package:flutter/material.dart';
+import '../../../core/config/theme/app_colors.dart';
+import '../../../core/config/theme/app_radii.dart';
+
+class AppointmentCard extends StatelessWidget {
+  final Map<String, dynamic> appointment;
+  final VoidCallback? onTap;
+
+  const AppointmentCard({
+    super.key,
+    required this.appointment,
+    this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      // Widget implementation
+    );
+  }
+}
+```
+
+### View'da Widget Kullanımı
+
+```dart
+// View dosyasında import
+import '../widgets/appointment_card.dart';
+
+// Kullanım
+AppointmentCard(
+  appointment: appointment,
+  onTap: () => controller.viewDetails(appointment),
+)
+```
+
 ## 🏗️ Dependency Injection
 
 ### Binding Kullanımı
